@@ -4,6 +4,7 @@ const resolvers = require("./resolvers");
 const TrackAPI = require("./datasources/track-api");
 
 async function startApolloServer(typeDefs, resolvers) {
+  // const production = process.env.NODE_ENV === "production";
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -12,6 +13,7 @@ async function startApolloServer(typeDefs, resolvers) {
         trackAPI: new TrackAPI(),
       };
     },
+    introspection: true,
   });
 
   const { url, port } = await server.listen({ port: process.env.PORT || 4000 });
